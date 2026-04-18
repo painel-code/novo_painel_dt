@@ -338,11 +338,11 @@ gestionar_ssl() {
 }
 
 generar_ssl_nuevo() {
-    mensaje "Generando nuevo certificado SSL para $DOMINIO..."
+    mensaje "Gerando novo certificado SSL para $DOMINIO..."
     
     # IMPORTANTE: Certbot standalone usa el puerto 80, no podemos cambiarlo
     # Es un requisito de Let's Encrypt para la validación del dominio
-    aviso "Let's Encrypt usará el puerto 80 para validar tu dominio (requisito obligatorio)"
+    aviso "O Let's Encrypt usará a porta 80 para validar seu domínio (requisito obrigatório)"
     aviso "Tu panel seguirá funcionando en el puerto $HTTP_PORT"
     
     # Detener Apache (libera el puerto 80)
@@ -366,17 +366,17 @@ generar_ssl_nuevo() {
     fi
     
     if [ $resultado -eq 0 ]; then
-        exito "SSL generado correctamente para $DOMINIO"
+        exito "SSL gerado corretamente para $DOMINIO"
         
         # Configurar renovación automática
         (crontab -l 2>/dev/null | grep -v "certbot renew"; echo "0 0 * * * certbot renew --quiet --post-hook 'systemctl reload apache2'") | crontab -
-        exito "Renovación automática configurada (cada día a las 00:00)"
+        exito "Configuração de renovação automática (todos os dias às 00:00)"
         
         # Mostrar información del certificado
         local dias=$(obtener_dias_restantes)
         echo -e "${CELESTE}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓${NC}"
         echo -e "${CELESTE}┃${NC} ${VERDE}Certificado válido por $dias días${NC}"
-        echo -e "${CELESTE}┃${NC} ${BLANCO}Se renovará automáticamente cuando falten 30 días${NC}"
+        echo -e "${CELESTE}┃${NC} ${BLANCO}Será renovada automaticamente quando faltarem 30 dias${NC}"
         echo -e "${CELESTE}┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛${NC}"
         
         # Reconfigurar Apache con SSL
@@ -1239,7 +1239,7 @@ configurar_apache() {
     CustomLog \${APACHE_LOG_DIR}/dtunnel_https_access.log combined
 </VirtualHost>
 EOF
-        exito "Apache configurado con SSL: HTTP:$HTTP_PORT → HTTPS:$HTTPS_PORT"
+        exito "Apache configurado com SSL: HTTP:$HTTP_PORT → HTTPS:$HTTPS_PORT"
     elif [ "$ES_IP" = false ]; then
         cat > $CONF_FILE << EOF
 <VirtualHost *:$HTTP_PORT>
