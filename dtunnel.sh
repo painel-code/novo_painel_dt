@@ -249,7 +249,7 @@ gestionar_ssl() {
         return 1
     fi
     
-    cabecera "GESTIÓN SSL INTELIGENTE"
+    cabecera "GESTÃO SSL AVANÇADO"
     
     # Verificar email
     if [ -z "$EMAIL_ADMIN" ]; then
@@ -265,8 +265,8 @@ gestionar_ssl() {
             fi
         done
     else
-        echo -e "${CELESTE}┃${NC} ${BLANCO}Email actual: ${VERDE}$EMAIL_ADMIN${NC}"
-        echo -ne "${CELESTE}┗━┫${NC} ${VERDE}¿Usar este email? (s/n): ${BLANCO}"; read usar_existente
+        echo -e "${CELESTE}┃${NC} ${BLANCO}E-mail atual: ${VERDE}$EMAIL_ADMIN${NC}"
+        echo -ne "${CELESTE}┗━┫${NC} ${VERDE}¿Use este e-mail? (s/n): ${BLANCO}"; read usar_existente
         if [ "$usar_existente" != "s" ] && [ "$usar_existente" != "S" ]; then
             while true; do
                 echo -ne "${CELESTE}┗━┫${NC} ${VERDE}Ingrese nuevo correo: ${BLANCO}"; read EMAIL_ADMIN
@@ -308,24 +308,24 @@ gestionar_ssl() {
     else
         # No existe certificado
         echo -e "${CELESTE}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓${NC}"
-        echo -e "${CELESTE}┃${NC} ${AMARILLO}⚠ No se encontró certificado SSL para $DOMINIO${NC}"
+        echo -e "${CELESTE}┃${NC} ${AMARILLO}⚠ Certificado SSL não encontrado para $DOMINIO${NC}"
         echo -e "${CELESTE}┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛${NC}"
         echo ""
         
         # Verificar puerto 80 (requerido por Let's Encrypt)
         if ! verificar_puerto_80; then
-            aviso "El puerto 80 no parece estar accesible desde internet"
-            aviso "Let's Encrypt REQUIERE el puerto 80 para la validación (no se puede cambiar)"
-            aviso "Tu panel usa el puerto $HTTP_PORT, pero para SSL necesitas el puerto 80 abierto"
+            aviso "A porta 80 parece não estar acessível para internet"
+            aviso "O Let's Encrypt EXIGE a porta 80 para validação (não pode ser alterada)"
+            aviso "Seu painel usa a porta $HTTP_PORT, mas para SSL você precisa da porta 80 aberta"
             echo ""
-            echo -ne "${CELESTE}┗━┫${NC} ${VERDE}¿Intentar de todas formas? (s/n): ${BLANCO}"; read continuar
+            echo -ne "${CELESTE}┗━┫${NC} ${VERDE}¿Tente mesmo assim? (s/n): ${BLANCO}"; read continuar
             if [ "$continuar" != "s" ] && [ "$continuar" != "S" ]; then
                 aviso "SSL cancelado - Abra el puerto 80 primero"
                 return 1
             fi
         fi
         
-        echo -ne "${CELESTE}┗━┫${NC} ${VERDE}¿Generar nuevo certificado SSL? (s/n): ${BLANCO}"; read respuesta
+        echo -ne "${CELESTE}┗━┫${NC} ${VERDE}¿Gerar novo certificado SSL? (s/n): ${BLANCO}"; read respuesta
         
         if [ "$respuesta" = "s" ] || [ "$respuesta" = "S" ]; then
             generar_ssl_nuevo
@@ -1066,15 +1066,15 @@ recopilar_info() {
             aviso "Usando IP: $DOMINIO - SSL não disponível"
         else
             ES_IP=false
-            exito "Usando dominio: $DOMINIO - SSL disponible"
+            exito "Usando dominio: $DOMINIO - SSL disponível"
             
             # Solicitar email manualmente
             while true; do
-                echo -ne "${CELESTE}┗━┫${NC} ${VERDE}Ingrese su correo electrónico para SSL: ${BLANCO}"; read EMAIL_ADMIN
+                echo -ne "${CELESTE}┗━┫${NC} ${VERDE}Insira seu e-mail para SSL: ${BLANCO}"; read EMAIL_ADMIN
                 if [ -z "$EMAIL_ADMIN" ]; then
                     error "El correo no puede estar vacío"
                 elif validar_email "$EMAIL_ADMIN"; then
-                    exito "Email válido: $EMAIL_ADMIN"
+                    exito "E-mail válido: $EMAIL_ADMIN"
                     break
                 else
                     error "Email inválido. Ejemplo: usuario@dominio.com"
