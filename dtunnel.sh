@@ -26,7 +26,7 @@ CELESTE='\033[0;96m'
 
 # Configuraciones
 INSTALL_DIR="/var/www/html/dtunnel"
-DROPBOX_URL="https://www.dropbox.com/scl/fi/tgfddiyr7a9pgl9atrmso/paineldtunnelmodBeta1.0.2.zip?rlkey=clqpgdykvguqioc61e3l0elbd&st=eph2g160&dl=1"
+DROPBOX_URL="https://www.dropbox.com/scl/fi/blwa4066aughwhbobf96u/paineldtunnelmodBeta1.0.2.zip?rlkey=k8oex6da9e4sxane6ytuz2yi5&st=ulcz3zz8&dl=1"
 DOMINIO=""
 ES_IP=false
 HTTP_PORT=8080
